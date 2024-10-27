@@ -1,0 +1,45 @@
+{% extends 'quotesapp/base.html' %}
+
+{% load form_filters %}
+
+{% block title %}Add Quote{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4 mt-4">
+    <h2 class="card-title mb-4 text-center">Add a New Quote</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_quote" class="form-label">Quote Text</label>
+            {{ form.quote|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_author" class="form-label">Author</label>
+            {{ form.author|add_class:"form-select" }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tags</label>
+            {{ form.tags }}
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Add Quote</button>
+    </form>
+
+    {% if form.errors %}
+    <div class="alert alert-danger mt-4">
+        <h4 class="alert-heading">Please correct the following errors:</h4>
+        <ul class="mb-0">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

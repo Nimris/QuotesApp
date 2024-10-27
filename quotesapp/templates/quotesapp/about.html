@@ -1,0 +1,32 @@
+{% extends 'quotesapp/base.html' %}
+
+{% block content %}
+<style>
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+</style>
+<div class="container mt-5">
+    <h2>About {{ author.full_name }}</h2>
+
+    <div class="author-info">
+        <p><strong>Born:</strong> {{ author.born_date }}</p>
+        <p><strong>Location:</strong> {{ author.born_location }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ author.description }}</p>
+    </div>
+
+    <a href="{% url 'quotesapp:main' %}" class="btn btn-secondary mt-3">Back</a>
+</div>
+
+<footer>
+    <p>Quotes to Inspire © 2024 | Built with Django</p>
+</footer>
+{% endblock %}

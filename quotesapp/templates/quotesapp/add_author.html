@@ -1,0 +1,49 @@
+{% extends 'quotesapp/base.html' %}
+
+{% load form_filters %}
+
+{% block title %}Add Author{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Add a New Author</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_full_name" class="form-label">Name</label>
+            {{ form.full_name|add_class:"form-control"}}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_born_date" class="form-label">Birth Date</label>
+            {{ form.born_date|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_born_location" class="form-label">Birth Location</label>
+            {{ form.born_location|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            {{ form.description|add_class:"form-control" }}
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Add Author</button>
+    </form>
+
+    {% if form.errors %}
+    <div class="alert alert-danger mt-3">
+        <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

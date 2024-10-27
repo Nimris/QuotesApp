@@ -1,0 +1,48 @@
+{% extends 'quotesapp/base.html' %}
+
+{% block title %}Quotes Tagged "{{ tag.name }}"{% endblock %}
+
+{% block content %}
+
+<style>
+    footer {
+        position: static;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+</style>
+
+<div class="container mt-5">
+    {% if quotes %}
+        <h2 class="mb-4">
+            Quotes Tagged with <span class="badge bg-secondary">{{ tag.name }}</span>
+        </h2>
+        <ul class="list-group shadow-sm">
+            {% for quote in quotes %}
+                <li class="list-group-item border-0 mb-3 p-4 bg-light rounded">
+                    <blockquote class="blockquote">
+                        <p class="fs-4 fw-light text-dark">“{{ quote.quote }}”</p>
+                        <div class="mt-2">
+                            — <a href="{% url 'quotesapp:author_detail' quote.author.id %}" 
+                                 class="text-decoration-none text-dark fw-bold">
+                                {{ quote.author.full_name }}
+                              </a>
+                        </div>
+                    </blockquote>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning mt-5" role="alert">
+            No quotes found for this tag.
+        </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
