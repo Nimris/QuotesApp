@@ -39,17 +39,6 @@ main {
     position: relative;
 }
 
-.top-tags {
-    position: absolute; /* Make the element absolute */
-    top: 125px;            /* Align it to the top */
-    right: 0;          /* Align it to the right */
-    width: 250px;      /* Adjust width as needed */
-    margin: 20px;      /* Optional: Add some margin */
-    font-weight: bold;
-    font-size: 1.5em;
-    
-}
-
 .quote {
     margin-bottom: 20px;
     padding: 10px;
@@ -61,13 +50,13 @@ main {
 }
 
 .tags a {
-    background-color: #eeeeee76;
+    background-color: #00000076;
     padding: 5px 10px;
     margin-right: 5px;
     margin-top: 20px;
     text-decoration: none;
-    color: #333;
-    border-radius: 1px;
+    color: #ffffff;
+    border-radius: 5px;
 }
 
 .author {
@@ -91,11 +80,36 @@ main {
 }
 
 footer {
-    background-color: #343a40;
-    color: white;
+    background-color: #212529; /* Darker shade for better contrast */
+    color: rgba(255, 255, 255, 0.85); /* Slight transparency for text */
     text-align: center;
-    padding: 10px 0;
-    margin-top: auto;
-    padding: auto;
+    padding: 10px 20px;
+    position: static; /* Ensure footer stays at the bottom */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    font-size: 0.9rem; /* Adjust font size for better readability */
+    font-family: 'Arial', sans-serif;
 }
 
+footer a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.author-select {
+    height: auto; /* Оставляем высоту по умолчанию */
+    max-height: 50px; /* Устанавливаем ограничение, если нужно */
+}
+
+.tag-select {
+    height: 250px; /* Устанавливаем фиксированную высоту */
+    overflow-y: auto; /* Добавляем прокрутку, если тегов много */
+    border: 1px solid #ccc; /* Добавляем границу для лучшего визуального разделения */
+    padding: 5px; /* Добавляем внутренний отступ для улучшения читаемости */
+    border-radius: 5px; /* Скругляем углы для более приятного внешнего вида */
+    background-color: #ffffff; /* Легкий фон для лучшего контраста */
+}

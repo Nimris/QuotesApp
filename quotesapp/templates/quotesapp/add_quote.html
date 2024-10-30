@@ -18,14 +18,14 @@
 
         <div class="mb-3">
             <label for="id_author" class="form-label">Author</label>
-            {{ form.author|add_class:"form-select" }}
+            {{ form.author|add_class:"form-select author-select" }}
         </div>
 
         <div class="mb-3">
             <label class="form-label">Tags</label>
-            {{ form.tags }}
+            {{ form.tags|add_class:"form-select tag-select" }}
         </div>
-
+    
         <button type="submit" class="btn btn-dark w-100">Add Quote</button>
     </form>
 
@@ -41,5 +41,4 @@
         </ul>
     </div>
     {% endif %}
-</div>
 {% endblock %}

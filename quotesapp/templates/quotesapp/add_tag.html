@@ -18,19 +18,12 @@
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card p-4" style="width: 400px;">
         <h2 class="text-center">Add a New Tag</h2>
-
         <form method="POST" action="{% url 'quotesapp:add_tag' %}">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="tag_name" class="form-label">Tag Name</label>
-                <input type="text" class="form-control" id="tag_name" name="tag_name" placeholder="Enter tag name" required>
-            </div>
+            {{ form.as_p }}
             <button type="submit" class="btn btn-dark w-100 mb-2">Add Tag</button>
         </form>
     </div>
 </div>
-<footer>
-    <p>Quotes to Inspire © 2024 | Built with Django</p>
-</footer>
 
 {% endblock %}

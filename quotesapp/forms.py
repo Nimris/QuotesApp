@@ -1,15 +1,14 @@
-from django.forms import CheckboxSelectMultiple, DateInput, ModelChoiceField, ModelForm, CharField, ModelMultipleChoiceField, Select, TextInput, DateField, Textarea
+from django.forms import CheckboxSelectMultiple, DateInput, ModelChoiceField, ModelForm, CharField, ModelMultipleChoiceField, Select, SelectMultiple, TextInput, DateField, Textarea
 from .models import Quote, Author, Tag
 
 class QuoteForm(ModelForm):
     quote = CharField(widget=TextInput(attrs={'class': 'form-control'}))
-    author = ModelChoiceField(queryset=Author.objects.all(), widget=Select(attrs={'class': 'form-select'}))
-    tags = ModelMultipleChoiceField(queryset=Tag.objects.all(),widget=CheckboxSelectMultiple, required=False)
+    author = ModelChoiceField(queryset=Author.objects.all().order_by('full_name'), widget=Select(attrs={'class': 'form-select'}))
+    tags = ModelMultipleChoiceField(queryset=Tag.objects.all().order_by('name'),widget=SelectMultiple, required=False)
     
     class Meta:
         model = Quote
         fields = ['quote', 'author', 'tags']
-        # exclude = ['author', 'tags'] # For what?
 
 
 class AuthorForm(ModelForm):

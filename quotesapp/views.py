@@ -7,14 +7,12 @@ from django.db.models import Count
 
 
 def main(request):
-    user_quotes = request.user.quotes.all()
-    default_quotes = Quote.objects.filter(is_default=True)
-    paginator = Paginator(quotes, 10) 
-
+    default_quotes = Quote.objects.filter(is_default=True).all()
+    quotes = Quote.objects.filter(user=request.user).all().order_by('-created_at') | default_quotes if request.user.is_authenticated else default_quotes
+    paginator = Paginator(quotes, 10)
     page_number = request.GET.get('page')
     quotes = paginator.get_page(page_number)
-    return render(request, 'quotesapp/index.html', {'user_quotes': user_quotes,
-        'default_quotes': default_quotes,})
+    return render(request, 'quotesapp/index.html', {'quotes': quotes})
 
 
 @login_required
@@ -27,10 +25,6 @@ def add_quote(request):
             new_quote.user = request.user
             new_quote.save()
             form.save_m2m()
-            
-            choice_authors = Author.objects.filter(full_name__in=request.POST.getlist('authors'))
-            for author in choice_authors.iterator():
-                new_quote.author.add(author)
                 
             return redirect(to='quotesapp:main')
         else:
@@ -63,7 +57,9 @@ def add_tag(request):
             new_tag = form.save(commit=False)
             new_tag.user = request.user
             new_tag.save()
+            form.save_m2m()
             return redirect(to='quotesapp:main')
+        
         else:
             return render(request, 'quotesapp/add_tag.html', {'form': form})
     
@@ -71,8 +67,8 @@ def add_tag(request):
 
 
 def tag_detail(request, tag_id):
-    tag = get_object_or_404(Tag, id=tag_id)
-    quotes = tag.quotes.all()  # Retrieve all quotes related to this tag
+    tag = get_object_or_404(Tag, pk=tag_id)
+    quotes = tag.quotes.all()
     return render(request, 'quotesapp/tag_detail.html', {'tag': tag, 'quotes': quotes})
 
 
@@ -85,6 +81,24 @@ def top_tags():
     return Tag.objects.annotate(num_quotes=Count('quotes')).order_by('-num_quotes')[:10]
 
 
-
+@login_required
+def delete_quote(request, quote_id):
+    quote = get_object_or_404(Quote, id=quote_id)
+    if quote.user == request.user:
+        quote.delete()
+    return redirect(to='quotesapp:main')
     
+@login_required
+def delete_author(request, author_id):
+    author = get_object_or_404(Author, id=author_id)
+    if author.user == request.user:
+        author.delete()
+    return redirect(to='quotesapp:main')
+
+@login_required
+def delete_tag(request, tag_id):
+    tag = get_object_or_404(Tag, id=tag_id)
+    if tag.user == request.user:
+        tag.delete()
+    return redirect(to='quotesapp:main')
 

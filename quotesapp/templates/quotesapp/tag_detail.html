@@ -6,7 +6,7 @@
 
 <style>
     footer {
-        position: static;
+        position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
@@ -19,29 +19,43 @@
 
 <div class="container mt-5">
     {% if quotes %}
-        <h2 class="mb-4">
-            Quotes Tagged with <span class="badge bg-secondary">{{ tag.name }}</span>
-        </h2>
-        <ul class="list-group shadow-sm">
-            {% for quote in quotes %}
-                <li class="list-group-item border-0 mb-3 p-4 bg-light rounded">
-                    <blockquote class="blockquote">
-                        <p class="fs-4 fw-light text-dark">“{{ quote.quote }}”</p>
-                        <div class="mt-2">
-                            — <a href="{% url 'quotesapp:author_detail' quote.author.id %}" 
-                                 class="text-decoration-none text-dark fw-bold">
-                                {{ quote.author.full_name }}
-                              </a>
-                        </div>
-                    </blockquote>
-                </li>
-            {% endfor %}
-        </ul>
+    <h2 class="mb-4">
+        Quotes Tagged with <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% comment %} 
+        {% if user.is_authenticated %}
+        <form action="{% url 'quotesapp:delete_tag' tag.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this tag?');">Delete Tag</button>
+        </form> 
+        {% endif %}
+        {% endcomment %}
+    </h2>
+    <ul class="list-group shadow-sm">
+        {% for quote in quotes %}
+            <li class="list-group-item border-0 mb-3 p-4 bg-light rounded">
+                <blockquote class="blockquote">
+                    <p class="fs-4 fw-light text-dark">“{{ quote.quote }}”</p>
+                    <div class="mt-2">
+                        — <a href="{% url 'quotesapp:author_detail' quote.author.id %}" 
+                             class="text-decoration-none text-dark fw-bold">
+                            {{ quote.author.full_name }}
+                          </a>
+                    </div>
+                </blockquote>
+            </li>
+        {% endfor %}
+    </ul>
     {% else %}
+    <form action="{% url 'delete_tag' tag.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this tag?');">Delete Tag</button>
+    </form>
         <div class="alert alert-warning mt-5" role="alert">
             No quotes found for this tag.
         </div>
+        
     {% endif %}
+    <a href="{% url 'quotesapp:main' %}" class="btn btn-secondary mt-3">Back</a>
 </div>
 
 
