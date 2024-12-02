@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [tool.poetry]
 name = "my-quotes"
 version = "0.1.0"
@@ -17,3 +18,24 @@ environ = "^1.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+=======
+[tool.poetry]
+name = "my-quotes"
+version = "0.1.0"
+description = "Web site with quotes"
+authors = ["Stanislav <stanislavv371@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.2"
+psycopg2 = "^2.9.10"
+pymongo = "^4.10.1"
+psycopg2-binary = "^2.9.10"
+environ = "^1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+>>>>>>> 2e1d1bf794122ae605bb08e29c40528b7f16feea
