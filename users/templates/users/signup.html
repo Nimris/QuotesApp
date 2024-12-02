@@ -19,6 +19,14 @@
                     </div>
                 </div>
 
+                </div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    {{ form.email|add_class:"form-control" }}
+                    <div class="text-danger small">
+                        {{ form.errors.email }}
+                    </div>
+                </div>
+
                 <div class="mb-3">
                     <label for="id_password1" class="form-label">Password</label>
                     {{ form.password1|add_class:"form-control" }}
